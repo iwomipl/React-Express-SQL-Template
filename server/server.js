@@ -14,7 +14,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(cors());
 
-app.get('/api', apiRouter);
+app.get('*', apiRouter);
 
 app.use(handleError);
 

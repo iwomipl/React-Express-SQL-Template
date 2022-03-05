@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 function App() {
-  const urlBesidesProxy = '/api';
+  const urlBesidesProxy = '/adder';
   const [backendData, setBackendData] = useState([{}]);
 
   useEffect(() => {
