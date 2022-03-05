@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 function App() {
-  const urlBesidesProxy = '/adder';
+  const urlBesidesProxy = '/list-of-users';
   const [backendData, setBackendData] = useState([{}]);
 
   useEffect(() => {
@@ -16,14 +16,13 @@ function App() {
       { "results": ["error"] }
     );
   }, [])
-
   return (
     <div>
       {(typeof backendData.results === 'undefined') ? (
         <p>Loading...</p>
       ) : (
         backendData.results.map((user, i) => (
-          <p id={i}>{user}</p>
+          <p id={i}>{user.id} <strong>{user.name}</strong> dołączył {user.startTime} </p>
         ))
       )}
     </div>

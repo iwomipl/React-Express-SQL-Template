@@ -20,7 +20,6 @@ class TemplateRecord{
     }
 
     async createNew() {
-        console.log(this.id, this.name, this.startTime)
 
         await pool.execute('INSERT INTO `users` VALUES(:id, :name, :startTime)', {
             id: this.id,
@@ -30,6 +29,10 @@ class TemplateRecord{
         return this.id;
     }
 
+    static async listAll(){
+        const [listOfAllUsers] = await pool.execute('SELECT * FROM `users`');
+        return listOfAllUsers.map((user => new TemplateRecord(user)));
+    }
 }
 
 module.exports = {TemplateRecord};
