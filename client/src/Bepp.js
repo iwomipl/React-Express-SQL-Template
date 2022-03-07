@@ -21,9 +21,10 @@ export function Bepp() {
             {(typeof backendData.results === 'undefined') ? (
                 <p>Loading...</p>
             ) : (
-                backendData.results.map((user, i) => (
-                    <p id={i}><strong>{user.name}</strong> dołączył <strong>{user.startTime}</strong> i ma id: <strong>{user.id}</strong> </p>
-                ))
+                backendData.results.map((user, i) => {
+                    return (<p id={i}><strong>{user.name}</strong> dołączył <strong>{user.startTime}</strong> i ma
+                        id: <strong>{user.id}</strong></p>)
+                })
             )}
         </div>
     )

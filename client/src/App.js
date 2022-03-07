@@ -38,9 +38,10 @@ export function App() {
           <button type="submit">Create</button>
 
           <div className="message">{message ? <p>{message}</p> : null}</div>
-          <hr/>
-          <Bepp/>
         </form>
+        <hr/>
+        {<Bepp/> ? <Bepp/> :<Bepp/>}
       </div>
   );
 }
+//@todo make component Bepp reload itself after each change
