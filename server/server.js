@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('*', apiRouter);
+app.post('*', apiRouter);
 
 app.use(handleError);
 

@@ -20,13 +20,16 @@ class TemplateRecord{
     }
 
     async createNew() {
-
         await pool.execute('INSERT INTO `users` VALUES(:id, :name, :startTime)', {
             id: this.id,
             name: this.name,
             startTime: this.startTime,
         });
-        return this.id;
+        return new TemplateRecord({
+            id: this.id,
+            name: this.name,
+            startTime: this.startTime,
+        });
     }
 
     static async listAll(){

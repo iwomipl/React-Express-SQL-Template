@@ -1,32 +1,46 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import {Bepp} from "./Bepp";
 
-function App() {
-  const urlBesidesProxy = '/list-of-users';
-  const [backendData, setBackendData] = useState([{}]);
+export function App() {
+  const [username, setUsername] = useState("");
+  const [message, setMessage] = useState("");
+  const urlToFetch = `/adder/${username}`;
 
-  useEffect(() => {
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let res = await fetch(urlToFetch, {
+            method: "POST",
+          });
 
-    fetch(urlBesidesProxy).then(
-      response => response.json()
-    ).then(
-      data => {
-        setBackendData(data)
+      const {startTime, name, id} = await (await res.json()).results[0];
+
+      if (res.status === 200) {
+        setUsername("");
+        setMessage(<p>At <strong>{startTime}</strong> You have successfully created a user called <strong>{name}</strong> with id: <strong>{id}</strong></p>);
+      } else {
+        setMessage("Some error occured");
       }
-    ).catch(
-      { "results": ["error"] }
-    );
-  }, [])
-  return (
-    <div>
-      {(typeof backendData.results === 'undefined') ? (
-        <p>Loading...</p>
-      ) : (
-        backendData.results.map((user, i) => (
-          <p id={i}>{user.id} <strong>{user.name}</strong> dołączył {user.startTime} </p>
-        ))
-      )}
-    </div>
-  )
-}
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-export default App
+  return (
+      <div className="App">
+        <form onSubmit={handleSubmit}>
+          <input
+              type="text"
+              value={username}
+              placeholder="Name"
+              onChange={(e) => setUsername(e.target.value)}
+          />
+          <button type="submit">Create</button>
+
+          <div className="message">{message ? <p>{message}</p> : null}</div>
+          <hr/>
+          <Bepp/>
+        </form>
+      </div>
+  );
+}
