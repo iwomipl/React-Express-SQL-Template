@@ -29,6 +29,12 @@ class TemplateRecord{
         return new TemplateRecord(cratedUser);
     }
 
+    async delete(){
+        await pool.execute('DELETE FROM `users` WHERE `id`=:id', {
+            id: this.id,
+        });
+    }
+
     static async listAll(){
         const [listOfAllUsers] = await pool.execute('SELECT * FROM `users`');
         return listOfAllUsers.map((user => new TemplateRecord(user)));
@@ -40,6 +46,7 @@ class TemplateRecord{
         });
         return new TemplateRecord(oneUser);
     }
+
 }
 
 module.exports = {TemplateRecord};

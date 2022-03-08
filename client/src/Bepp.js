@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
+import {Cepp} from "./Cepp";
 
 export function Bepp() {
     const urlBesidesProxy = '/list-of-users';
     const [backendData, setBackendData] = useState([{}]);
 
     useEffect(() => {
-
         fetch(urlBesidesProxy).then(
             response => response.json()
         ).then(
@@ -15,17 +15,38 @@ export function Bepp() {
         ).catch(
             { "results": ["error"] }
         );
-    }, [])
+    })
     return (
-        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Applied at</th>
+                    <th>Id</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
+                </tr>
+                </thead>
+                <tbody>
             {(typeof backendData.results === 'undefined') ? (
-                <p>Loading...</p>
+                <tr>
+                    <td>Loading...</td>
+                </tr>
             ) : (
                 backendData.results.map((user, i) => {
-                    return (<p id={i}><strong>{user.name}</strong> dołączył <strong>{user.startTime}</strong> i ma
-                        id: <strong>{user.id}</strong></p>)
+                    return (
+                        <tr key={i}>
+                            <td>{user.name}</td>
+                            <td>{user.startTime}</td>
+                            <td>{user.id}</td>
+                            <td>
+                                <Cepp id={user.id}/>
+                            </td>
+                        </tr>
+                    )
                 })
             )}
-        </div>
+                </tbody>
+            </table>
     )
 }

@@ -16,6 +16,7 @@ app.use(cors());
 
 app.get('*', apiRouter);
 app.post('*', apiRouter);
+app.delete('*', apiRouter);
 
 app.use(handleError);
 

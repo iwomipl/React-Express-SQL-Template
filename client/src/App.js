@@ -28,20 +28,23 @@ export function App() {
 
   return (
       <div className="App">
+<Bepp/>
+          <hr/>
         <form onSubmit={handleSubmit}>
-          <input
-              type="text"
-              value={username}
-              placeholder="Name"
-              onChange={(e) => setUsername(e.target.value)}
-          />
+            <label>Add user:<br/>
+              <input
+                  type="text"
+                  value={username}
+                  placeholder="Name"
+                  onChange={(e) => setUsername(e.target.value)}
+              />
+            </label>
           <button type="submit">Create</button>
 
-          <div className="message">{message ? <p>{message}</p> : null}</div>
+          <div className="message">{message ? <span>{message}</span> : null}</div>
         </form>
-        <hr/>
-        {<Bepp/> ? <Bepp/> :<Bepp/>}
+
+
       </div>
   );
 }
-//@todo make component Bepp reload itself after each change
